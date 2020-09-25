@@ -1,39 +1,83 @@
 import React from 'react';
+import { Component } from 'react';
 
 import Header from './header';
 import Menu from './menu';
 import Footer from './footer';
 
-function EnterWeight() {
+class EnterWeight extends Component {
 
-  return (
-    <div>
-      <Header />
-      <Menu />
+  constructor() {
+    super();
 
+    this.state = {
+      empName: "",
+      empWeight: ""
+    };
+  }
+
+  changeHandler = (anevent) => {
+    this.setState({
+      [anevent.target.name]: anevent.target.value
+    });
+  }
+
+  submitHandler = (anevent) => {
+    anevent.preventDefault(); // Prevent page from reloading
+    console.log(this.state);
+  }
+
+  render() {
+
+    const {empName, empWeight} = this.state;
+
+    return (
       <div>
-        You are on the enterweight component
-        <main>
-          <h2>Enter your info</h2>
-          <form>
+        <Header />
+        <Menu />
 
-            <div>
-              <label for="empName">Your Name </label>
-              <input id="empName" name="empName" type="text"/>
-            </div>
+        <div>
+          You are on the enterweight component
+          <main>
+            <h2>Enter your info</h2>
 
-            <div>
-              <label for="empWeight">Your Weight today </label>
-              <input id="empWeight" name="empWeight" type="text"/>
-            </div>
+            <form onSubmit={this.submitHandler}>
 
-          </form>
-        </main>
+              <div>
+                <label for="empName">Your Name </label>
+                <input
+                  id="empName"
+                  name="empName"
+                  type="text"
+                  value={empName}
+                  onChange={this.changeHandler}
+                />
+              </div>
+
+              <div>
+                <label for="empWeight">Your Weight today </label>
+                <input
+                  id="empWeight"
+                  name="empWeight"
+                  type="text"
+                  value={empWeight}
+                  onChange={this.changeHandler}
+                />
+              </div>
+
+              <button type="submit">Enter weight</button>
+
+            </form>
+
+          </main>
+        </div>
+
+        <Footer />
       </div>
+    );
 
-      <Footer />
-    </div>
-  );
+  }
+
 
 }
 
